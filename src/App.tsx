@@ -9,12 +9,20 @@ const App = () => {
   const startService = async () => {
     ref.current = await esbuild.startService({
       worker: true,
-      wasmURL: '/esbuild.wsam',
+      wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm',
     })
   }
-  const onclick = () => {
+  const onclick = async () => {
     if (!ref.current) return
-    console.log(ref.current)
+
+    const results = await ref.current.transform(input, {
+      loader: 'jsx',
+      target: 'es2015',
+    })
+
+    console.log(results)
+
+    setCode(results.code)
   }
 
   useEffect(() => {
