@@ -23,7 +23,7 @@ const App = () => {
       plugins: [unpkgPathPlugin()],
     })
 
-    setCode(result.outputFiles[0].text)
+    setCode(result.outputFiles[0].textgit )
   }
 
   useEffect(() => {
