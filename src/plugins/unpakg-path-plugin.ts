@@ -1,5 +1,10 @@
 import * as esbuild from 'esbuild-wasm';
 import axios from 'axios';
+import localforage from 'localforage';
+
+const fileCache = localforage.createInstance({
+  name: 'SultanCache',
+});
 
 export const unpkgPathPlugin = () => {
   return {
@@ -39,12 +44,24 @@ export const unpkgPathPlugin = () => {
             `,
           };
         }
+
+        // Check to see if we have already fetched this file
+        // and if it is in the cache
+
+        const cachedResult = await fileCache.getItem(args.path);
+
+        // if it is return immediately
+        if (cachedResult) return cachedResult;
+
         const { data, request } = await axios.get(args.path);
-        return {
+        // store respone in cache
+        const result = {
           loader: 'jsx',
           contents: data,
           resolveDir: new URL('./', request.responseURL).pathname,
         };
+        await fileCache.setItem(args.path, result);
+        return result;
       });
     },
   };
