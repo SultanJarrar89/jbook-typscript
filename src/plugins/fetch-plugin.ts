@@ -31,13 +31,16 @@ export const fetchPlugin = (inputCode: string) => {
 
         const { data, request } = await axios.get(args.path);
         const fileType = args.path.match(/.css$/) ? 'css' : 'jsx';
+        const escaped = data
+          .replace(/\n/g, '')
+          .replace(/"/g, '\\"')
+          .replace(/'/g, "\\'");
         const contents =
           fileType === 'css'
             ? `
-          cosnt style = document.createElement('style');
-          style.innerText = 'body { backgound-color: "red" }';
-          document.head.appendChild(style);
-          
+            const style = document.createElement('style');
+            style.innerText = '${escaped}';
+            document.head.appendChild(style);
           `
             : data;
 
