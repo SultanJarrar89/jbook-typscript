@@ -34,7 +34,9 @@ const App = () => {
   useEffect(() => {
     startService();
   }, []);
-
+  const html = `
+  <script>${code}</script>
+  `;
   return (
     <div>
       <textarea
@@ -45,6 +47,7 @@ const App = () => {
         <button onClick={onclick}>Submit</button>
       </div>
       <pre>{code}</pre>
+      <iframe srcDoc={html} sandbox='allow-scripts' />
     </div>
   );
 };
