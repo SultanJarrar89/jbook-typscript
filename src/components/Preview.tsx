@@ -46,4 +46,3 @@ const Preview: React.FC<PreviewProps> = ({ code }) => {
 };
 
 export default Preview;
-// result.outputFiles[0].text
