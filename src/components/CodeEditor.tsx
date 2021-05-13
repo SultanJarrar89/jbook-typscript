@@ -33,7 +33,12 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
   };
   return (
     <div>
-      <button onClick={onFormat}>Format</button>
+      <button
+        className='button button-format is-primary is-small'
+        onClick={onFormat}
+      >
+        Format
+      </button>
       <MonacoEditor
         editorDidMount={onEditorDidMount}
         value={initialValue}
