@@ -39,7 +39,6 @@ const Preview: React.FC<PreviewProps> = ({ code }) => {
   return (
     <div className='preview-wrapper'>
       <iframe
-        style={{ backgroundColor: 'white' }}
         title='code preview'
         ref={iframe}
         srcDoc={html}
