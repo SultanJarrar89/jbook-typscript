@@ -1,7 +1,6 @@
 import { ActionType } from '../actions-types';
 import { Action } from '../actions';
 import { Cell } from '../cell';
-import { stat } from 'node:fs';
 
 export interface CellState {
   loading: boolean;
@@ -25,7 +24,17 @@ const reducer = (
 ): CellState => {
   switch (action.type) {
     case ActionType.UPDATE_CELL:
-      return state;
+      const { id, content } = action.payload;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          [id]: {
+            ...state.data[id],
+            content,
+          },
+        },
+      };
     case ActionType.DELETE_CELL:
       return state;
     case ActionType.MOVE_CELL:
