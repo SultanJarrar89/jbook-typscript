@@ -1,7 +1,12 @@
 import React from 'react';
+import { Cell } from '../redux';
 
-const CellListItem: React.FC = () => {
-  return <div></div>;
+interface CellListItemProps {
+  cell: Cell;
+}
+
+const CellListItem: React.FC<CellListItemProps> = ({ cell }) => {
+  return <div>{cell.id}</div>;
 };
 
 export default CellListItem;
