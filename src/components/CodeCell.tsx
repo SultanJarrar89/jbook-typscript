@@ -12,7 +12,7 @@ interface CodeCellProps {
 }
 
 const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
-  const bundle = useTypedSelector((state) => state.bundles);
+  const bundle = useTypedSelector((state) => state.bundles[cell.id]);
   const { updateCell, createBundle } = useActions();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
             onChange={(value) => updateCell(cell.id, value)}
           />
         </Resizable>
-        <Preview code={code} err={err} />
+        {bundle && <Preview code={bundle.code} err={bundle.err} />}
       </div>
     </Resizable>
   );
