@@ -12,7 +12,7 @@ const CellListItem: React.FC<CellListItemProps> = ({ cell }) => {
 
   cell.type === 'code'
     ? (child = <CodeCell cell={cell} />)
-    : (child = <TextEditor />);
+    : (child = <TextEditor cell={cell} />);
   return <div>{child}</div>;
 };
 
