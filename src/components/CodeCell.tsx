@@ -7,6 +7,8 @@ import { Cell } from '../redux';
 import { useActions } from '../hooks/use-actions';
 import { useTypedSelector } from '../hooks/use-typed-selector';
 
+import './CodeCell.css';
+
 interface CodeCellProps {
   cell: Cell;
 }
@@ -45,7 +47,11 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
           />
         </Resizable>
         {!bundle || bundle.loading ? (
-          <div>Loading...</div>
+          <div className='progress-cover'>
+            <progress className='progress is-small is-primary' max='100'>
+              Loading
+            </progress>
+          </div>
         ) : (
           <Preview code={bundle.code} err={bundle.err} />
         )}
