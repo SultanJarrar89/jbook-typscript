@@ -18,11 +18,10 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   const cumulativeCode = useTypedSelector((state) => {
     const { order, data } = state.cells;
     const orederCells = order.map((id) => data[id]);
-    const cumulativeCode = [
-      ` 
+    const showFunc = ` 
         import _React from 'react'
         import _ReactDOM from 'react-dom'
-        const show = (value) => {
+        var show = (value) => {
           const root = document.querySelector('#root')
           if(typeof value === 'object'){
             if(value.$$typeof && value.props){
@@ -34,10 +33,18 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
             root.innerHTML= value
           }
         };
-      `,
-    ];
+      `;
+    const showFuncNoOP = 'var show = () => {}';
+    const cumulativeCode = [];
     for (const c of orederCells) {
-      if (c.type === 'code') cumulativeCode.push(c.content);
+      if (c.type === 'code') {
+        if (cell.id === c.id) {
+          cumulativeCode.push(showFunc);
+        } else {
+          cumulativeCode.push(showFuncNoOP);
+        }
+        cumulativeCode.push(c.content);
+      }
       if (c.id === cell.id) break;
     }
     return cumulativeCode;
