@@ -18,7 +18,13 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
   const cumulativeCode = useTypedSelector((state) => {
     const { order, data } = state.cells;
     const orederCells = order.map((id) => data[id]);
-    const cumulativeCode = [];
+    const cumulativeCode = [
+      ` 
+        const show = (value)=>{
+          document.querySelector('#root').innerHTML= value
+        };
+      `,
+    ];
     for (const c of orederCells) {
       if (c.type === 'code') cumulativeCode.push(c.content);
       if (c.id === cell.id) break;
