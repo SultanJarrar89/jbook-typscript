@@ -20,8 +20,12 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }) => {
     const orederCells = order.map((id) => data[id]);
     const cumulativeCode = [
       ` 
-        const show = (value)=>{
-          document.querySelector('#root').innerHTML= value
+        const show = (value) => {
+          if(typeof value === 'object'){
+           document.querySelector('#root').innerHTML= JSON.stringify(value)
+          }else{
+            document.querySelector('#root').innerHTML= value
+          }
         };
       `,
     ];
